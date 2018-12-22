@@ -1,7 +1,9 @@
 from flask import Flask,request,jsonify
+from werkzeug.contrib.fixers import ProxyFix
 import redis
 
 application = Flask(__name__)
+application.wsgi_app = ProxyFix(application.wsgi_app)
 
 redis_obj = redis.Redis(host = '127.0.0.1', port = 6379, db = 0)
 redis_obj_db1 = redis.Redis(host = '127.0.0.1', port = 6379, db = 1)
